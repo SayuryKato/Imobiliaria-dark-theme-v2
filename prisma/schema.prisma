@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String  @unique
+  password  String
+  is_active Boolean @default(true)
+
+  realtors  Realtor[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Realtor {
+  id          Int      @id @default(autoincrement())
+  photoUrl    String?
+  phones      String[]
+  description String?
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Property {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  price       Decimal  @db.Decimal(10, 2)
+  address     String
+  imagesUrl   String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

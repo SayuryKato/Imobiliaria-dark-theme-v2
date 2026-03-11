@@ -4,7 +4,7 @@ import CardAbout from "./card-about";
 
 const AboutUs = () => {
   return (
-    <div className="bg-black flex justify-around p-6">
+    <div className="bg-black flex justify-around p-6" id="about">
       <div className="relative w-1/2 min-h-155 overflow-hidden">
         <Image
           src={Img02}

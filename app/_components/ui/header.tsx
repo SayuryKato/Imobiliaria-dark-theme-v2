@@ -1,13 +1,28 @@
+"use client";
+
 import { Card, CardContent } from "./card";
 import { navItems } from "@/app/_constants/navegation";
 import { Button } from "./button";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../public/logo.jpeg";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
-    <Card className="fixed top-0 left-0 z-20 w-full rounded-none border-none bg-white/5 shadow-md backdrop-blur-lg">
+    <Card
+      className={`fixed top-0 left-0 z-20 w-full rounded-none border-none transition-all duration-300 ${scrolled ? "bg-black/50 backdrop-blur-lg shadow-md" : "bg-white/5 backdrop-blur-lg"}`}
+    >
       <CardContent className="flex items-center justify-between">
         <div className="rounded-full w-16 h-16 flex items-center justify-center overflow-hidden">
           <Image

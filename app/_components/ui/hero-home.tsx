@@ -4,22 +4,27 @@ import { prisma } from "../../_lib/prisma";
 import HeroCarousel from "./heroCarousel";
 
 export default async function HeroHome() {
-  const properties = await prisma.property.findMany({});
+  const property = await prisma.property.findUnique({
+    where: { id: 1 },
+    include: {
+      images: true,
+    },
+  });
+  console.log("property", property);
 
   return (
     <main className="relative min-h-screen w-full text-white">
-
       {/* Imagem de fundo */}
-      {properties.map((property: any) => (
+      {property && (
         <div className="absolute inset-0 -z-10">
           <div key={property.id}>
-            <HeroCarousel images={properties[8].imagesUrl} />
+            <HeroCarousel images={property.images.map((img) => img.imageUrl)} />
           </div>
 
           {/* overlay escuro */}
           <div className="absolute inset-0 bg-black/70" />
         </div>
-      ))}
+      )}
 
       {/* Conteúdo */}
       <div className="flex flex-col justify-center min-h-screen max-w-6xl mx-auto px-6">

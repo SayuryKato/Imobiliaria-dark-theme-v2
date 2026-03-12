@@ -12,6 +12,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import ButtonIcon from "./button-icon";
+import Link from "next/link";
 
 const ContentContactRight = () => {
   return (
@@ -51,8 +52,15 @@ const ContentContactRight = () => {
         </div>
 
         <div className="flex gap-2 items-center text-primary">
-          <MoveUpRight size={12} />
-          <p>Ver no Google Maps</p>
+          <Link
+            href={`https://www.google.com/maps?q=-23.5278642,-46.5280499`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 hover:underline"
+          >
+            <MoveUpRight size={12} />
+            <p>Ver no Google Maps</p>
+          </Link>
         </div>
       </section>
 

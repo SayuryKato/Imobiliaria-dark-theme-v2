@@ -13,7 +13,7 @@ const SectionProperty = async ({
   return (
     <div className="flex flex-col p-6 gap-4">
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 justify-items-center mt-8">
-        {properties.map((property) => (
+        {/* {properties.map((property) => (
           <CardProperty
             id={property.id}
             key={property.id}
@@ -27,7 +27,7 @@ const SectionProperty = async ({
             parking={3}
             price="R$ 2.890.000"
           />
-        ))}
+        ))} */}
       </div>
 
       {visibleButton && (

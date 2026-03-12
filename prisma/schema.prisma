@@ -12,33 +12,122 @@ model User {
   name      String
   email     String  @unique
   password  String
+
+  photoUrl  String?
   is_active Boolean @default(true)
 
-  realtors  Realtor[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Realtor {
   id          Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
   photoUrl    String?
   phones      String[]
+  creci      String?
+  yearsOfExperience Int?
+  totalSales  Int?
+  rating      Float?
   description String?
 
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  properties Property[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Property {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  price       Decimal  @db.Decimal(10, 2)
-  address     String
-  imagesUrl   String[]
+  id             Int      @id @default(autoincrement())
+  title          String
+  description    String
+  price          Float
+  pricePerM      Float
+  address        String
+  city           String
+  state          String
+  neighborhood   String
+  zipCode        String
+
+  bedrooms       Int
+  bathrooms      Int
+  parkingSpaces  Int
+  areaTotal      Float
+  floor          Int?
+  condominiumFee Float?
+  iptu           Float?
+
+  realtorId Int
+  realtor   Realtor @relation(fields: [realtorId], references: [id])
+
+  images     PropertyImage[]
+  media      PropertyMedia[]
+  floorPlans PropertyFloorPlan[]
+  features   PropertyFeature[]
+  dimensions PropertyDimension[]
+  nearby     PropertyNearby[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Feature {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  properties PropertyFeature[]
+}
+
+model PropertyFeature {
+  id Int @id @default(autoincrement())
+
+  propertyId Int
+  featureId  Int
+
+  property Property @relation(fields: [propertyId], references: [id])
+  feature  Feature  @relation(fields: [featureId], references: [id])
+}
+
+model PropertyImage {
+  id        Int    @id @default(autoincrement())
+  imageUrl  String
+
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+model PropertyMedia {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+model PropertyFloorPlan {
+  id       Int    @id @default(autoincrement())
+  imageUrl String
+
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+model PropertyDimension {
+  id   Int    @id @default(autoincrement())
+  name String
+  size Float
+
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+model PropertyNearby {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  distance    Float
+
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
 }

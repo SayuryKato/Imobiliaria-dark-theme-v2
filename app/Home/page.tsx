@@ -1,6 +1,6 @@
 import AboutUs from "../_components/ui/about";
 import AboutLocalization from "../_components/ui/about-localization";
-import HeroHome from "../_components/ui/heroHome";
+import HeroHome from "../_components/ui/hero-home";
 import SectionHomeInfor from "../_components/ui/section-home-infor";
 import SectionHomeMessage from "../_components/ui/section-home-message";
 import SectionProperty from "../_components/ui/section-property";

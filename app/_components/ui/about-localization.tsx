@@ -1,6 +1,7 @@
 import { MapPinned } from "lucide-react";
 import { Button } from "./button";
 import { StaticMap } from "./static-map";
+import Link from "next/link";
 
 const AboutLocalization = () => {
   return (
@@ -18,7 +19,15 @@ const AboutLocalization = () => {
           te guiar.
         </p>
 
-        <Button variant={"outline"}>Quero conhecer o local</Button>
+        <Button variant={"outline"} asChild>
+          <Link
+            href={`https://www.google.com/maps?q=-23.5278642,-46.5280499`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Quero conhecer o local
+          </Link>
+        </Button>
       </section>
 
       <section className="h-100 flex items-center justify-center">

@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
+        id="top"
         className={`${cormorant.variable} ${outfit.variable} dark bg-white font-body`}
       >
         <Header />

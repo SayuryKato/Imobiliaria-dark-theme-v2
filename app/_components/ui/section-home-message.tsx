@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "./button";
 
 const SectionHomeMessage = () => {
@@ -16,7 +17,11 @@ const SectionHomeMessage = () => {
         </p>
       </div>
 
-      <Button>Entre em contato conosco</Button>
+      <Button asChild>
+        <Link href="/Contact">
+          Entre em contato conosco
+        </Link>
+      </Button>
     </div>
   );
 };

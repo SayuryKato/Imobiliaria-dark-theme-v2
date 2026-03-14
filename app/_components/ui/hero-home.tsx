@@ -2,6 +2,7 @@ import { ChevronsRight } from "lucide-react";
 import { Button } from "./button";
 import { prisma } from "../../_lib/prisma";
 import HeroCarousel from "./heroCarousel";
+import Link from "next/link";
 
 export default async function HeroHome() {
   const property = await prisma.property.findUnique({
@@ -43,14 +44,14 @@ export default async function HeroHome() {
         </p>
 
         {/* botão */}
-        <div className="mt-6">
+        <div className="flex mt-6">
           <Button
-            variant={"ghost"}
-            className="flex items-center bg-primary text-white"
+            asChild
           >
-            <span>Explorar mais</span>
-
-            <ChevronsRight size={18} />
+            <Link href={"/Property"}>
+              <span>Explorar mais</span>
+              <ChevronsRight size={18} />
+            </Link>
           </Button>
         </div>
       </div>

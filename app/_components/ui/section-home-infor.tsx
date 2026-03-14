@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "./button";
 import img01 from "../../../public/images/img01.png";
+import Link from "next/link";
 
 const SectionHomeInfor = () => {
   return (
@@ -20,7 +21,9 @@ const SectionHomeInfor = () => {
           você merece um lar à sua altura.
         </p>
 
-        <Button className="">CONHECER A EMPRESA</Button>
+        <Button asChild>
+          <Link href={'/#about'}>CONHECER A EMPRESA</Link>
+        </Button>
       </div>
 
       <Image

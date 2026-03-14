@@ -35,13 +35,25 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
     where: {
       id: Number(id),
     },
+    include: {
+      images: true,
+      floorPlans: true,
+      media: true,
+      realtor: true,
+    },
   });
 
   console.log(property);
 
+  if (!property) {
+    return <div>Imóvel não encontrado</div>;
+  }
+
   return (
     <div className="text-gray-500">
-      {property && <HeroCarouselProperty images={property.imagesUrl} />}
+      <HeroCarouselProperty
+        images={property.images.map((img) => img.imageUrl)}
+      />
 
       <div className="p-8 flex justify-between gap-4">
         <section className="flex flex-col gap-8 w-7/10">
@@ -53,7 +65,9 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/Property">Empreendimentos</BreadcrumbLink>
+                  <BreadcrumbLink href="/Property">
+                    Empreendimentos
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
@@ -64,8 +78,8 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
 
             <TextTitle title="RESIDÊNCIA" subtitle="ALTO PINHEIROS" />
             <p className="flex gap-2 items-center">
-              <MapPin className="text-primary" /> Alameda Santos, 1000 - São
-              Paulo, SP
+              <MapPin className="text-primary" />
+              {property.address} - {property.city}, {property.state}
             </p>
           </div>
 
@@ -73,32 +87,29 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
             <CardPropertyInfor title="Quartos" value={2} icon={<Bed />} />
             <CardPropertyInfor
               title="Banheiros"
-              value={2}
+              value={property.bathrooms}
               icon={<ShowerHead />}
             />
-            <CardPropertyInfor title="Vagas" value={3} icon={<Car />} />
+            <CardPropertyInfor
+              title="Vagas"
+              value={property.parkingSpaces}
+              icon={<Car />}
+            />
             <CardPropertyInfor
               title="Área Total"
-              value={"148m²"}
+              value={`${property.areaTotal}m²`}
               icon={<Ruler />}
             />
-            <CardPropertyInfor title="Andar" value={"8º"} icon={<Building />} />
+            <CardPropertyInfor
+              title="Andar"
+              value={` ${property.floor || 0}º `}
+              icon={<Building />}
+            />
           </section>
 
           <section>
             <h1 className="text-primary font-title text-2xl mb-2">DESCRIÇÃO</h1>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
+            <p>{property.description || "-"}</p>
           </section>
 
           <section>
@@ -111,7 +122,12 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
           <section>
             <h1 className="text-primary font-title text-2xl mb-2">MAPA</h1>
             <div className="justify-center items-center flex">
-              <Image src={imgPlanta} alt="Planta do imóvel" height={500} />
+              <Image
+                src={imgPlanta}
+                alt="Planta do imóvel"
+                height={500}
+                width={500}
+              />
             </div>
           </section>
 
@@ -127,21 +143,37 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
             <CardPropertyInforCaracteristics />
           </section>
 
-          <section>
-            <h1 className="text-primary font-title text-2xl mb-2">PLANTA</h1>
-            <div className="justify-center items-center flex">
-              <Image src={imgPlanta} alt="Planta do imóvel" height={500} />
-            </div>
-          </section>
+          {property.floorPlans && property.floorPlans.length > 0 && (
+            <section>
+              <h1 className="text-primary font-title text-2xl mb-2">PLANTA</h1>
+              <div className="justify-center items-center flex">
+                <Image
+                  src={property.floorPlans[0]?.imageUrl}
+                  alt="Planta do imóvel"
+                  height={500}
+                  width={500}
+                />
+              </div>
+            </section>
+          )}
 
-          <section>
-            <h1 className="text-primary font-title text-2xl mb-2">
-              TOUR VIRTUAL & VÍDEO
-            </h1>
-            <div className="justify-center items-center flex">
-              <Image src={imgPlanta} alt="Planta do imóvel" height={500} />
-            </div>
-          </section>
+          {property.media && property.media.length > 0 && (
+            <section>
+              <h1 className="text-primary font-title text-2xl mb-2">
+                TOUR VIRTUAL & VÍDEO
+              </h1>
+              <div className="justify-center items-center flex">
+                <iframe
+                  width="800"
+                  height="450"
+                  src={property.media[0]?.url}
+                  title="Tour do imóvel"
+                  allowFullScreen
+                  className="rounded-xl"
+                ></iframe>
+              </div>
+            </section>
+          )}
         </section>
 
         <div className="flex flex-col gap-6 w-3/10 static">

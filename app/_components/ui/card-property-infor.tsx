@@ -3,11 +3,18 @@ import { Button } from "./button";
 import { Card, CardContent } from "./card";
 import { CheckCheck, Star } from "lucide-react";
 import imgPerson from "@/public/images/person01.png";
+import { Property } from "@/generated/prisma/client";
 
 interface CardPropertyInforProps {
   icon?: React.ReactNode;
   title: string;
   value: string | number;
+}
+
+interface CardPropertyProps {
+  property: Property & {
+    images: { imageUrl: string }[];
+  };
 }
 const CardPropertyInfor = ({ icon, title, value }: CardPropertyInforProps) => {
   return (

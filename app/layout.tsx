@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { cormorant, outfit } from "./font";
-import Header from "./_components/ui/header";
-import Footer from "./_components/ui/footer";
 export const metadata: Metadata = {
   title: "KAIROS REAL STATE",
   description:
@@ -17,12 +15,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        id="top"
         className={`${cormorant.variable} ${outfit.variable} dark bg-white font-body`}
       >
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );

@@ -22,7 +22,7 @@ const HomePage = () => {
             <span className="text-primary italic">grande contato humano</span>
           </h1>
         </div>
-        <SectionProperty />
+        {/* <SectionProperty /> */}
       </div>
 
       <AboutUs />

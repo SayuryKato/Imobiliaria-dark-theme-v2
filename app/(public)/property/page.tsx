@@ -1,5 +1,5 @@
 import Image from "next/image";
-import img03 from "../../public/images/img03.jpg";
+import img03 from "../../../public/images/img03.jpg";
 import Filter from "../../_components/ui/filter";
 import SectionProperty from "../../_components/ui/section-property";
 import {

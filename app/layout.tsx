@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { cormorant, outfit } from "./font";
+import { Toaster } from "./_components/ui/sonner";
 export const metadata: Metadata = {
   title: "KAIROS REAL STATE",
   description:
@@ -18,6 +19,7 @@ export default function RootLayout({
         className={`${cormorant.variable} ${outfit.variable} dark bg-white font-body`}
       >
         {children}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

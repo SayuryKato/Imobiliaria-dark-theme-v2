@@ -1,5 +1,8 @@
+"use client";
+
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { Button } from "./button";
+import { openWhatsApp } from "../_utils/whatsapp";
 
 const CardWhatsapp = () => {
   return (
@@ -16,7 +19,12 @@ const CardWhatsapp = () => {
         Clique abaixo para iniciar uma conversa.
       </p>
 
-      <Button className="w-full">
+      <Button className="w-full" onClick={() =>
+                openWhatsApp(
+                  "5511999999999",
+                  `Olá Kairós, vi um imóvel e gostaria de mais informações!`,
+                )
+              }>
         <p>Conversar no WhatsApp</p>
         <ArrowRight />
       </Button>

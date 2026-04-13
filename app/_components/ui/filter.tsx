@@ -48,7 +48,7 @@ const Filter = ({
       }
     });
 
-    router.push(`/Property?${params.toString()}`);
+    router.push(`/property?${params.toString()}`);
   };
 
   return (

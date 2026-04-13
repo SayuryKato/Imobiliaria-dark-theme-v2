@@ -1,14 +1,11 @@
 import Image from "next/image";
 import logo from "../../../public/logo.jpeg";
-import ButtonIcon from "./button-icon";
-import {
-  Mail,
-  MessageCircle,
-  ArrowUp,
-} from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { navItems } from "@/app/_constants/navegation";
 import { Button } from "./button";
 import Link from "next/link";
+import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import ButtonIconSocial from "./button-icons-social";
 
 const Footer = () => {
   return (
@@ -29,27 +26,24 @@ const Footer = () => {
             Paulo, com excelência, transparência e sofisticação.
           </p>
 
-          <div className="flex gap-4 ">
-            {/* <ButtonIcon icon={<Instagram />} />
-            <ButtonIcon icon={<Facebook />} /> */}
-            <ButtonIcon icon={<Mail />} />
-            <ButtonIcon icon={<MessageCircle />} />
-          </div>
+          <ButtonIconSocial />
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-6">
+        {/* <div className="flex flex-col items-center justify-center gap-6">
           <p className="text-primary font-medium">BAIRROS</p>
           <Button variant={"link"}>MOEMA</Button>
           <Button variant={"link"}>Jardim Paulista</Button>
           <Button variant={"link"}>Vila Madalena</Button>
           <Button variant={"link"}>Ver mais...</Button>
-        </div>
+        </div> */}
 
         <div className="flex flex-col items-center justify-center gap-6">
           <p className="text-primary font-medium">EMPRESA</p>
           {navItems.map((item) => (
-            <Button key={item.href} variant={"link"}>
-              {item.label}
+            <Button variant={"link"} asChild key={item.href}>
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
             </Button>
           ))}
         </div>
@@ -70,7 +64,7 @@ const Footer = () => {
           contato@espacoestilo.com.br | (11) 9999-9999
         </p>
         <Button variant={"outline"}>
-          <Link href={'#top'} className="flex items-center gap-2">
+          <Link href={"#top"} className="flex items-center gap-2">
             <ArrowUp /> Voltar ao topo
           </Link>
         </Button>

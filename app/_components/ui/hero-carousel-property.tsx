@@ -6,12 +6,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./carousel";
+import Link from "next/link";
+import { MoveUpRight } from "lucide-react";
 
 interface HeroCarouselProps {
   images: string[];
+  mapa: {
+    address: string;
+    city: string;
+  };
 }
 
-export function HeroCarouselProperty({ images }: HeroCarouselProps) {
+export function HeroCarouselProperty({ images, mapa }: HeroCarouselProps) {
   return (
     <Carousel className="w-full bg-black relative h-140">
       <CarouselContent className="w-full h-140">
@@ -28,6 +34,19 @@ export function HeroCarouselProperty({ images }: HeroCarouselProps) {
             </div>
           </CarouselItem>
         ))}
+        <div className="absolute bottom-0 right-0 text-primary bg-white p-1">
+          <Link
+            href={`https://www.google.com/maps?q=${encodeURIComponent(
+              `${mapa.address}, ${mapa.city}`,
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 hover:underline"
+          >
+            <MoveUpRight size={12} />
+            <p>Ver no Google Maps</p>
+          </Link>
+        </div>
       </CarouselContent>
 
       <CarouselPrevious className="absolute top-1/2 -translate-y-1/2 left-4" />

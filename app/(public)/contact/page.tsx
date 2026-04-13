@@ -1,9 +1,9 @@
-import img03 from "../../public/images/img03.jpg";
+import img03 from "../../../public/images/img03.jpg";
 import Image from "next/image";
-import CardContactInfor from "../_components/ui/card-contact-infor";
+import CardContactInfor from "../../_components/ui/card-contact-infor";
 import { Phone, Mail, MapPinned, Clock } from "lucide-react";
-import ContentContactLeft from "../_components/ui/content-contact-left";
-import ContentContactRight from "../_components/ui/content-contact-right";
+import ContentContactLeft from "../../_components/ui/content-contact-left";
+import ContentContactRight from "../../_components/ui/content-contact-right";
 const Contact = () => {
   return (
     <div>

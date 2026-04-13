@@ -6,34 +6,28 @@ import {
   Clock,
   MapPinned,
   MoveUpRight,
-  Instagram,
-  Facebook,
-  Mail,
-  MessageCircle,
 } from "lucide-react";
-import ButtonIcon from "./button-icon";
+import { FaInstagram, FaFacebook, FaWhatsapp, FaTwitter } from "react-icons/fa";
 import Link from "next/link";
+import { prisma } from "@/app/_lib/prisma";
+import  ButtonIconSocial  from "./button-icons-social";
 
-const ContentContactRight = () => {
+const ContentContactRight = async () => {
+  const realtors = await prisma.realtor.findMany({});
+  console.log(realtors);
   return (
     <div className="bg-black w-full flex flex-col gap-8 p-6">
       <section>
         <p className="text-primary">FALE DIRETAMENTER COM UM CONSULTOR</p>
-        <CardContactRealtor
-          name="Ana Carolina Ferreira"
-          description="Especialista em imóveis"
-          imageUrl={imgPerson.src}
-        />
-        <CardContactRealtor
-          name="Rafael Mendes"
-          description="Especialista em imóveis"
-          imageUrl={imgPerson.src}
-        />
-        <CardContactRealtor
-          name="Patrícia Silva"
-          description="Especialista em imóveis"
-          imageUrl={imgPerson.src}
-        />
+        {realtors.map((realtor) => (
+          <CardContactRealtor
+            key={realtor.id}
+            name={realtor.name}
+            description={realtor.description || "Especialista em imóveis"}
+            imageUrl={realtor.photoUrl || imgPerson.src}
+            phone={realtor.phones[0]}
+          />
+        ))}
       </section>
 
       <CardWhatsapp />
@@ -66,12 +60,7 @@ const ContentContactRight = () => {
 
       <section className="flex flex-col gap-4 border-t border-primary/50 pt-5">
         <p className="text-primary">SIGA-NOS</p>
-        <div className="flex gap-4 ">
-          <ButtonIcon icon={<Instagram />} />
-          <ButtonIcon icon={<Facebook />} />
-          <ButtonIcon icon={<Mail />} />
-          <ButtonIcon icon={<MessageCircle />} />
-        </div>
+        <ButtonIconSocial />
       </section>
     </div>
   );

@@ -53,6 +53,10 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
     <div className="text-gray-500">
       <HeroCarouselProperty
         images={property.images.map((img) => img.imageUrl)}
+        mapa={{
+          address: property.address,
+          city: property.city,
+        }}
       />
 
       <div className="p-8 flex justify-between gap-4">
@@ -117,29 +121,6 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
               LOCALIZAÇÃO E PROXIMIDADES
             </h1>
             <CardPropertyInforTime />
-          </section>
-
-          <section>
-            <h1 className="text-primary font-title text-2xl mb-2">MAPA</h1>
-            {/* <div className="justify-center items-center flex">
-              <Image
-                src={imgPlanta}
-                alt="Planta do imóvel"
-                height={500}
-                width={500}
-              />
-            </div> */}
-            <div className="h-100 flex items-center justify-center">
-              <a
-                href={`https://www.google.com/maps?q=${encodeURIComponent(
-                  `${property?.address}, ${property?.city}`,
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <StaticMap />
-              </a>
-            </div>
           </section>
 
           <section>

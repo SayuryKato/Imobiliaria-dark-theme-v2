@@ -37,7 +37,9 @@ const CardProperty = ({ property }: { property: PropertyWithRelations }) => {
 
         <h2 className="text-3xl font-serif mt-1">{property.title}</h2>
 
-        <p className="text-gray-200 mt-1">{property.address} - {property.city}</p>
+        <p className="text-gray-200 mt-1">
+          {property.address} - {property.city}
+        </p>
 
         {/* infos */}
         <div className="flex gap-6 mt-4 text-sm">
@@ -59,7 +61,6 @@ const CardProperty = ({ property }: { property: PropertyWithRelations }) => {
           {formatPrice(property.price)}
         </p>
 
-        {/* botão */}
         <Button className="mt-4 h-14 py-3 text-lg font-medium w-full">
           <Link href={`/property/${property.id}`}>Ver mais detalhes</Link>
         </Button>

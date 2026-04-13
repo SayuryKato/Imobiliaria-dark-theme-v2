@@ -24,63 +24,69 @@ import {
 } from "./input-group";
 
 const formSchema = z.object({
-  title: z
+  firstName: z.string().min(2, "Nome é obrigatório"),
+  lastName: z.string().min(2, "Sobrenome é obrigatório"),
+  email: z.string().email("Email inválido"),
+  phone: z.string().optional(),
+  message: z
     .string()
-    .min(5, "Bug title must be at least 5 characters.")
-    .max(32, "Bug title must be at most 32 characters."),
-  description: z
-    .string()
-    .min(20, "Description must be at least 20 characters.")
-    .max(100, "Description must be at most 100 characters."),
+    .min(10, "Mensagem muito curta")
+    .max(300, "Mensagem muito longa"),
 });
 
 export function FormsContact() {
+  const [loading, setLoading] = React.useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      message: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    toast("You submitted the following values:", {
-      description: (
-        <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
-    });
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      setLoading(true);
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify({
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          phone: data.phone,
+          message: data.message,
+        }),
+      });
+
+      if (!response.ok) throw new Error();
+
+      toast.success("Mensagem enviada com sucesso! 🎉");
+      form.reset();
+    } catch {
+      toast.error("Erro ao enviar mensagem 😢");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <Card className="w-full bg-white text-black border border-gray-200">
       <CardContent>
-        <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
+        <form id="contact-form" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
+            {/* Nome + Sobrenome */}
             <Field orientation="horizontal">
               <Controller
-                name="title"
+                name="firstName"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-rhf-demo-title">
-                      Nome <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-rhf-demo-title"
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Seu nome"
-                      autoComplete="off"
-                    />
+                    <FieldLabel>Nome *</FieldLabel>
+                    <Input {...field} placeholder="Seu nome" />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -89,20 +95,12 @@ export function FormsContact() {
               />
 
               <Controller
-                name="title"
+                name="lastName"
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-rhf-demo-title">
-                      Sobrenome <span className="text-destructive">*</span>
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-rhf-demo-title"
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Seu sobrenome"
-                      autoComplete="off"
-                    />
+                    <FieldLabel>Sobrenome *</FieldLabel>
+                    <Input {...field} placeholder="Seu sobrenome" />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -111,46 +109,51 @@ export function FormsContact() {
               />
             </Field>
 
-            <Field>
-              <FieldLabel htmlFor="fieldgroup-email">
-                Email <span className="text-destructive">*</span>
-              </FieldLabel>
-              <Input
-                id="fieldgroup-email"
-                type="email"
-                placeholder="name@example.com"
-              />
-              <FieldDescription>
-                Enviaremos atualizações para este endereço.
-              </FieldDescription>
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="form-phone">Telefone </FieldLabel>
-              <Input id="form-phone" type="tel" placeholder="99999-9999" />
-            </Field>
-
+            {/* Email */}
             <Controller
-              name="description"
+              name="email"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-demo-description">
-                    Mensagem <span className="text-destructive">*</span>
-                  </FieldLabel>
+                  <FieldLabel>Email *</FieldLabel>
+                  <Input {...field} type="email" />
+                  <FieldDescription>
+                    Entraremos em contato por este email.
+                  </FieldDescription>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+
+            {/* Telefone */}
+            <Controller
+              name="phone"
+              control={form.control}
+              render={({ field }) => (
+                <Field>
+                  <FieldLabel>Telefone</FieldLabel>
+                  <Input {...field} placeholder="(11) 99999-9999" />
+                </Field>
+              )}
+            />
+
+            {/* Mensagem */}
+            <Controller
+              name="message"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel>Mensagem *</FieldLabel>
                   <InputGroup>
                     <InputGroupTextarea
                       {...field}
-                      id="form-rhf-demo-description"
-                      placeholder="Digite sua mensagem aqui."
-                      rows={6}
-                      className="min-h-24 resize-none"
-                      aria-invalid={fieldState.invalid}
+                      rows={5}
+                      className="resize-none"
                     />
                     <InputGroupAddon align="block-end">
-                      <InputGroupText className="tabular-nums">
-                        {field.value.length}/100 caracteres
-                      </InputGroupText>
+                      <InputGroupText>{field.value.length}/300</InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                   {fieldState.invalid && (
@@ -162,13 +165,15 @@ export function FormsContact() {
           </FieldGroup>
         </form>
       </CardContent>
+
       <CardFooter>
         <Field orientation="horizontal">
           <Button type="button" variant="outline" onClick={() => form.reset()}>
             Resetar
           </Button>
-          <Button type="submit" form="form-rhf-demo">
-            Enviar
+
+          <Button type="submit" form="contact-form" disabled={loading}>
+            {loading ? "Enviando..." : "Enviar"}
           </Button>
         </Field>
       </CardFooter>

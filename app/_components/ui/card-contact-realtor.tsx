@@ -1,15 +1,19 @@
-import Image from "next/image";
-import { MessageCircle } from "lucide-react";
-import ButtonIcon from "./button-icon";
+"use client";
 
+import Image from "next/image";
+import { FaWhatsapp } from "react-icons/fa";
+import { Button } from "./button";
+import { openWhatsApp } from "../_utils/whatsapp";
 interface CardContactRealtorProps {
   name: string;
+  phone: string;
   description: string;
   imageUrl: string;
 }
 
 const CardContactRealtor = ({
   name,
+  phone,
   description,
   imageUrl,
 }: CardContactRealtorProps) => {
@@ -29,7 +33,18 @@ const CardContactRealtor = ({
           <p className="text-gray-500">{description}</p>
         </div>
       </div>
-      <ButtonIcon icon={<MessageCircle />} />
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() =>
+          openWhatsApp(
+            phone,
+            `Olá ${name}, vi um imóvel e gostaria de mais informações!`,
+          )
+        }
+      >
+        <FaWhatsapp />
+      </Button>
     </div>
   );
 };

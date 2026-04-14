@@ -14,7 +14,6 @@ import  ButtonIconSocial  from "./button-icons-social";
 
 const ContentContactRight = async () => {
   const realtors = await prisma.realtor.findMany({});
-  console.log(realtors);
   return (
     <div className="bg-black w-full flex flex-col gap-8 p-6">
       <section>

@@ -20,7 +20,7 @@ import {
 } from "@/app/_components/ui/card-property-infor";
 import { Bed, ShowerHead, Car, Ruler, Building } from "lucide-react";
 import Image from "next/image";
-import { StaticMap } from "@/app/_components/ui/static-map";
+import { splitTitleSmart } from "@/app/_components/_utils/split-title";
 
 interface PropertyDetailsProps {
   params: Promise<{
@@ -40,10 +40,15 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
       floorPlans: true,
       media: true,
       realtor: true,
+      dimensions: true,
+      features: {
+        include: {
+          feature: true,
+        },
+      },
+      nearby: true,
     },
   });
-
-  console.log(property);
 
   if (!property) {
     return <div>Imóvel não encontrado</div>;
@@ -80,7 +85,11 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
               </BreadcrumbList>
             </Breadcrumb>
 
-            <TextTitle title="RESIDÊNCIA" subtitle="ALTO PINHEIROS" />
+            <TextTitle
+              title={splitTitleSmart(property.title).title.toUpperCase()}
+              subtitle={splitTitleSmart(property.title).subtitle.toUpperCase()}
+            />
+
             <p className="flex gap-2 items-center">
               <MapPin className="text-primary" />
               {property.address} - {property.city}, {property.state}
@@ -116,24 +125,32 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
             <p>{property.description || "-"}</p>
           </section>
 
-          <section>
-            <h1 className="text-primary font-title text-2xl mb-2">
-              LOCALIZAÇÃO E PROXIMIDADES
-            </h1>
-            <CardPropertyInforTime />
-          </section>
+          {property.nearby && property.nearby.length > 0 && (
+            <section>
+              <h1 className="text-primary font-title text-2xl mb-2">
+                LOCALIZAÇÃO E PROXIMIDADES
+              </h1>
+              <CardPropertyInforTime nearby={property.nearby} />
+            </section>
+          )}
 
-          <section>
-            <h1 className="text-primary font-title text-2xl mb-2">DIMENSÕES</h1>
-            <CardPropertyInforDimensions />
-          </section>
+          {property.dimensions && property.dimensions.length > 0 && (
+            <section>
+              <h1 className="text-primary font-title text-2xl mb-2">
+                DIMENSÕES
+              </h1>
+              <CardPropertyInforDimensions dimensions={property.dimensions} />
+            </section>
+          )}
 
-          <section>
-            <h1 className="text-primary font-title text-2xl mb-2">
-              CARACTERÍSTICAS E DIFERENCIAIS
-            </h1>
-            <CardPropertyInforCaracteristics />
-          </section>
+          {property.features && property.features.length > 0 && (
+            <section>
+              <h1 className="text-primary font-title text-2xl mb-2">
+                CARACTERÍSTICAS E DIFERENCIAIS
+              </h1>
+              <CardPropertyInforCaracteristics features={property.features} />
+            </section>
+          )}
 
           {property.floorPlans && property.floorPlans.length > 0 && (
             <section>
@@ -169,7 +186,20 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
         </section>
 
         <div className="flex flex-col gap-6 w-3/10 static">
-          <CardPropertyInforPayment />
+          <CardPropertyInforPayment
+            price={property.price}
+            pricePerM2={property.pricePerM}
+            condominiumFee={property.condominiumFee ?? 0}
+            iptu={property.iptu ?? 0}
+            realtor={{
+              name: property.realtor?.name || "",
+              creci: property.realtor?.creci || undefined,
+              description: property.realtor?.description || undefined,
+              photoUrl: property.realtor?.photoUrl || undefined,
+              rating: property.realtor?.rating || undefined,
+              phones: property.realtor.phones[0],
+            }}
+          />
 
           <div className="flex gap-2">
             <CardPropertyInfor
@@ -189,7 +219,18 @@ const PropertyDetails = async ({ params }: PropertyDetailsProps) => {
             />
           </div>
 
-          <CardPropertyInforPerson />
+          {property.realtor && (
+            <CardPropertyInforPerson
+              realtor={{
+                name: property.realtor.name,
+                creci: property.realtor.creci ?? undefined,
+                description: property.realtor.description ?? undefined,
+                photoUrl: property.realtor.photoUrl ?? undefined,
+                rating: property.realtor.rating ?? undefined,
+                phones: property.realtor.phones[0],
+              }}
+            />
+          )}
 
           <div className="flex flex-col items-center justify-center">
             <p>🔒 Dados protegidos · Sem taxa de consulta</p>

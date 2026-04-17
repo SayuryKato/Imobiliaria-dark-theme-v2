@@ -5,7 +5,17 @@ import Link from "next/link";
 
 const SectionHomeInfor = () => {
   return (
-    <div className="flex justify-around p-6 bg-primary/10 text-black">
+    <div
+      className="flex 
+      flex-col 
+      justify-around
+      lg:flex-row 
+      items-center 
+      p-6 
+      bg-primary/10 
+      text-black
+    "
+    >
       <div className="flex flex-col justify-center items-start gap-4">
         <p className="text-primary text-sm">KAIROS REAL STATE</p>
         <h1 className="font-title font-light text-7xl leading-[1.1] tracking-wide">
@@ -22,7 +32,7 @@ const SectionHomeInfor = () => {
         </p>
 
         <Button asChild>
-          <Link href={'/#about'}>CONHECER A EMPRESA</Link>
+          <Link href={"/#about"}>CONHECER A EMPRESA</Link>
         </Button>
       </div>
 

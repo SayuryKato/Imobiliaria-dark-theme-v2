@@ -14,8 +14,7 @@ type PropertyWithRelations = Prisma.PropertyGetPayload<{
 
 const CardProperty = ({ property }: { property: PropertyWithRelations }) => {
   return (
-    <div className="relative w-100 h-140 rounded-md overflow-hidden">
-      {/* imagem */}
+    <div className="relative w-full h-140 rounded-md overflow-hidden">
       <Image
         src={property.images[0]?.imageUrl || `${logo.src}`}
         alt={property.title}
@@ -23,7 +22,6 @@ const CardProperty = ({ property }: { property: PropertyWithRelations }) => {
         className="object-cover"
       />
 
-      {/* overlay */}
       <div className="absolute inset-0 bg-black/36" />
 
       {/* tag */}

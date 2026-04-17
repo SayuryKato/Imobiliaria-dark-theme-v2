@@ -34,34 +34,34 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="flex justify-around gap-5 bg-secondary p-5">
+      <section className="grid grid-cols-1 md:grid-cols-4 gap-5 bg-secondary p-5">
         <CardContactInfor
-          icon={<Phone size={16}/>}
+          icon={<Phone size={16} />}
           type="TELEFONE"
           value="(11) 1234-5678"
           description="Ligue para nós e obtenha assistência personalizada."
         />
         <CardContactInfor
-          icon={<Mail size={16}/>}
+          icon={<Mail size={16} />}
           type="E-MAIL"
           value="contato@gmail.com"
           description="Resposta em até 24h"
         />
         <CardContactInfor
-          icon={<MapPinned size={16}/>}
+          icon={<MapPinned size={16} />}
           type="ENDEREÇO"
           value="Maria Carlota, 714"
           description="Vila Matilde, São Paulo-SP"
         />
         <CardContactInfor
-          icon={<Clock size={16}/>}
+          icon={<Clock size={16} />}
           type="HORÁRIO DE ATENDIMENTO"
           value="Seg-Sex, 9h às 18h"
           description="Sáb, 9h às 13h"
         />
       </section>
 
-      <section className="flex gap-4 justify-between">
+      <section className="flex gap-4 justify-between lg:flex-row flex-col">
         <ContentContactLeft />
         <ContentContactRight />
       </section>

@@ -10,8 +10,8 @@ import ButtonIconSocial from "./button-icons-social";
 const Footer = () => {
   return (
     <div className="bg-black p-6">
-      <section className="flex justify-around">
-        <div className="w-1/4 flex flex-col items-center gap-6">
+      <section className="flex justify-around lg:flex-row flex-col gap-6 items-center">
+        <div className="lg:w-1/4 flex flex-col items-center gap-6">
           <div className="rounded-full flex items-center justify-center">
             <Image
               src={logo}
@@ -52,13 +52,23 @@ const Footer = () => {
           <p className="text-primary font-medium">CONTATO</p>
           <Button variant={"link"}>(99) 9 9999-9999</Button>
           <Button variant={"link"}>contato@gmail.com</Button>
-          <Button variant={"link"}>
-            Rua Maria Carlota, 714, Vila Matilde - 03647000 - São Paulo, SP
+          <Button
+            variant={"link"}
+            asChild
+            className="whitespace-normal text-left"
+          >
+            <Link
+              href="https://maps.google.com/?q=Rua+Maria+Carlota,+714,+Vila+Matilde+-+03647000+-+São+Paulo,+SP"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Rua Maria Carlota, 714, Vila Matilde - 03647000 - São Paulo, SP
+            </Link>
           </Button>
         </div>
       </section>
 
-      <section className="flex w-full items-center justify-between mt-6 border-t border-primary/50 pt-6">
+      <section className="flex w-full items-center justify-between mt-6 border-t border-primary/50 pt-6 lg:flex-row flex-col gap-6">
         <p>
           © 2025 New Home. Todos os direitos reservados. |
           contato@espacoestilo.com.br | (11) 9999-9999

@@ -3,9 +3,9 @@ import { Button } from "./button";
 
 const SectionHomeMessage = () => {
   return (
-    <div className="bg-primary/10 text-black flex items-center justify-around p-6 h-100">
+    <div className="bg-primary/10 text-black flex items-center justify-around p-6 h-full w-full lg:h-100 lg:flex-row flex-col gap-6">
       <div>
-        <h1 className="font-title font-light text-7xl leading-[1.1] tracking-wide">
+        <h1 className="font-title font-light lg:text-7xl text-5xl leading-[1.1] tracking-wide">
           Pronto para encontrar o seu
           <br />
           <span className="text-primary italic">lar perfeito?</span>

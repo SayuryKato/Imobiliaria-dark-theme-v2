@@ -37,7 +37,7 @@ const SectionProperty = ({
   }
 
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-4 p-6 justify-around">
       {totalProperties !== undefined && (
         <div className="flex items-center justify-start gap-4 rounded">
           <CardPropertyFilter
@@ -47,7 +47,7 @@ const SectionProperty = ({
         </div>
       )}
 
-      <div className="grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 xl:grid-cols-4">
         {properties.map((property) => (
           <CardProperty key={property.id} property={property} />
         ))}

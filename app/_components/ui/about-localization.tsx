@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const AboutLocalization = () => {
   return (
-    <div className="bg-black border border-t-primary/50 p-6 flex justify-center gap-5 items-center h-140">
-      <section className="w-3/10 flex flex-col gap-4 items-start h-full justify-center">
+    <div className="bg-black border border-t-primary/50 p-6 flex justify-center gap-5 items-center h-140 lg:flex-row flex-col">
+      <section className="w-full flex flex-col gap-4 items-start h-full justify-center lg:w-3/10">
         <div className="text-primary flex gap-4 item-center">
           <MapPinned />
           <h2 className="text-2xl font-title">Nossa Localização</h2>

@@ -30,15 +30,17 @@ const AboutLocalization = () => {
         </Button>
       </section>
 
-      <section className="h-100 flex items-center justify-center">
-        <a
-          href={`https://www.google.com/maps?q=-23.5278642,-46.5280499`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <StaticMap />
-        </a>
-      </section>
+      <div className="w-full lg:w-3/10 h-100 rounded-xl overflow-hidden">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3310.4163704531616!2d-46.53063052502226!3d-23.527856160361456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjPCsDMxJzQwLjMiUyA0NsKwMzEnNDEuMCJX!5e1!3m2!1spt-BR!2sbr!4v1776531449923!5m2!1spt-BR!2sbr"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
     </div>
   );
 };

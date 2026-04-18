@@ -22,11 +22,11 @@ const Header = () => {
   }, []);
   return (
     <Card
-      className={`fixed top-0 left-0 z-20 w-full rounded-none border-none transition-all duration-300 ${scrolled ? "bg-black/50 backdrop-blur-lg shadow-md" : "bg-white/5 backdrop-blur-lg"}`}
+      className={`fixed top-0 left-0 z-20 w-full rounded-none border-none transition-all duration-300 ${scrolled ? "bg-black/50 backdrop-blur-lg shadow-md" : "bg-white/5 backdrop-blur-lg"} py-2 px-4 lg:py-3`}
     >
-      <CardContent className="flex items-center justify-between">
+      <CardContent className="flex items-center justify-between ">
         <div className="flex gap-4 items-center">
-          <div className="rounded-full w-18 h-18 flex items-center justify-center overflow-hidden">
+          <div className="rounded-full w-12 h-12 lg:w-18 lg:h-18 flex items-center justify-center overflow-hidden">
             <Image
               src={logo}
               alt="Logo da Empresa"
@@ -35,24 +35,10 @@ const Header = () => {
               className="object-cover"
             />
           </div>
-          <p className="text-primary font-title">CRECI 12345-J</p>
+          <p className="text-xs lg:text-base text-primary font-title">
+            CRECI 12345-J
+          </p>
         </div>
-        {/* <div>
-          {navItems.map((items, index) => {
-            const isLast = index === navItems.length - 1;
-
-            return (
-              <Button
-                key={items.href}
-                variant={isLast ? "default" : "link"}
-                className={`cursor-pointer ${isLast ? "bg-primary text-white" : ""}`}
-                asChild
-              >
-                <Link href={items.href}>{items.label}</Link>
-              </Button>
-            );
-          })}
-        </div> */}
         <div className="hidden lg:flex items-center gap-2">
           {navItems.map((items, index) => {
             const isLast = index === navItems.length - 1;

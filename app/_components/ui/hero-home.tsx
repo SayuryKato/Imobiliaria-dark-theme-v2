@@ -14,7 +14,7 @@ export default async function HeroHome() {
   console.log("property", property);
 
   if (!property) {
-   return <div>Não foi possível carregar os dados.</div>;
+    return <div>Não foi possível carregar os dados.</div>;
   }
 
   return (
@@ -33,12 +33,9 @@ export default async function HeroHome() {
 
       {/* Conteúdo */}
       <div className="flex flex-col justify-center min-h-screen max-w-6xl mx-auto px-6">
-        {/* Título */}
-        <h1 className="font-title font-light text-7xl leading-[1.1] tracking-wide">
-          Uma vida <span className="text-primary italic">mais fácil</span>
-          <br />
-          com uma casa como
-          <br />a nossa casa.
+        <h1 className="font-title font-light text-5xl lg:text-7xl leading-[1.1] tracking-wide">
+          Uma vida <span className="text-primary italic"> mais fácil </span> com
+          uma casa como a nossa casa.
         </h1>
 
         {/* descrição */}

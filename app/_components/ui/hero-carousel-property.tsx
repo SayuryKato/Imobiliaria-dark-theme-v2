@@ -8,6 +8,7 @@ import {
 } from "./carousel";
 import Link from "next/link";
 import { MoveUpRight } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "./dialog";
 
 interface HeroCarouselProps {
   images: string[];
@@ -23,17 +24,33 @@ export function HeroCarouselProperty({ images, mapa }: HeroCarouselProps) {
       <CarouselContent className="w-full h-140">
         {images.map((image, index) => (
           <CarouselItem key={index} className="basis-1/2 lg:basis-1/3">
-            <div className="flex aspect-square items-center justify-center relative w-full h-140">
-              <Image
-                src={image}
-                alt={`Slide ${index + 1}`}
-                fill
-                priority
-                className="object-cover"
-              />
-            </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="flex aspect-square items-center justify-center relative w-full h-140 cursor-pointer">
+                  <Image
+                    src={image}
+                    alt={`Slide ${index + 1}`}
+                    fill
+                    priority
+                    className="object-cover"
+                  />
+                </div>
+              </DialogTrigger>
+
+              <DialogContent className="max-w-5xl p-0 bg-transparent border-none">
+                <div className="relative w-full h-[80vh]">
+                  <Image
+                    src={image}
+                    alt={`Slide ${index + 1}`}
+                    fill
+                    className="object-contain rounded-lg"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
           </CarouselItem>
         ))}
+
         <div className="absolute bottom-0 right-0 text-primary bg-white p-1">
           <Link
             href={`https://www.google.com/maps?q=${encodeURIComponent(

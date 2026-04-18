@@ -61,7 +61,7 @@ const CardPropertyInfor = ({ icon, title, value }: CardPropertyInforProps) => {
 
 const CardPropertyInforTime = ({ nearby }: CardPropertyProps) => {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
       {nearby?.map((item, index) => (
         <Card
           className="bg-white border border-gray-200 shadow-md p-4 w-full"
@@ -81,13 +81,13 @@ const CardPropertyInforTime = ({ nearby }: CardPropertyProps) => {
 
 const CardPropertyInforDimensions = ({ dimensions }: CardPropertyProps) => {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
       {dimensions?.map((dimension, index) => (
         <Card
           className="bg-white border border-gray-200 shadow-md w-full"
           key={index}
         >
-          <CardContent className="flex justify-between items-center">
+          <CardContent className="flex justify-between items-center flex-col lg:flex-row">
             <h3 className="font-semibold text-gray-400">{dimension.name}</h3>
             <p className="text-xl text-black ">{dimension.size}m²</p>
           </CardContent>
@@ -99,7 +99,7 @@ const CardPropertyInforDimensions = ({ dimensions }: CardPropertyProps) => {
 
 const CardPropertyInforCaracteristics = ({ features }: CardPropertyProps) => {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
       {features?.map((feature, index) => (
         <Card
           className="bg-white border border-gray-200 shadow-md w-full"
